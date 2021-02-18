@@ -1,22 +1,15 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import reducer from "./RootReducer"
+import { createStore, combineReducers } from "redux";
+import authReducer from './reducers/authReducer';
+import postsReducer from './reducers/postsReducer';
 
-const logger = (store) => {
-    return (next) => {
-        return (action) => {
-            console.log("[Middleware] Dispatching", action)
-            const result = next(action)
-            console.log("[Middleware] next state", store.getState())
-            return result
-        }
-    }
-}
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const allReducers = combineReducers(
+    authReducer,
+    postsReducer
+)
 
 const store = createStore(
-    reducer,
-    composeEnhancers(applyMiddleware(logger))
+    allReducers,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
 
 export default store
