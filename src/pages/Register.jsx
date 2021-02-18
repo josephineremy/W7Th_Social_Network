@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import GoogleFontLoader from 'react-google-font-loader';
-import { Layout } from 'antd';
-import { Typography } from 'antd';
 
 import { registerSuccess, registerFail } from '../redux/actions/authActions'
 
@@ -15,7 +13,7 @@ const Register = () => {
   const dispatch = useDispatch()
   const history = useHistory();
 
-  const newRegister = (e) => {
+  const registration = (e) => {
     e.preventDefault()
     const data = {
       username: name,
@@ -68,7 +66,7 @@ const Register = () => {
     </>
      <h1 className= "title" style={{ fontFamily: 'Roboto Mono, monospaced' }}> S'inscrire </h1>
       <div style={{ margin: '80px' }}>
-            <form onSubmit={newRegister}>
+            <form onSubmit={registration}>
               <input className="input-register" type="text" placeholder="Prénom" value={name} onChange={(e) => setName(e.target.value)} required /><br></br>
               <input className="input-register" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br></br>
               <input className="input-register" type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} required /><br></br>

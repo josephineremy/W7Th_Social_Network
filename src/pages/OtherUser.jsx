@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-
-import { Layout } from 'antd';
-import { Typography } from 'antd';
+import GoogleFontLoader from 'react-google-font-loader';
+import { Divider } from 'antd';
 
 const OtherUser = () => {
     const token = useSelector(state => state.auth.token);
@@ -61,42 +60,49 @@ const OtherUser = () => {
         fetchUserPosts()
     }, [token, userId])
 
-    const { Header, Content } = Layout;
-
-    const { Title } = Typography;
 
 
     return (
         <>
-            <Header className="site-layout-sub-header-background" style={{ padding: 0, textAlign: "center" }}>
-                <Title>Welcome on {user.username}'s profile.</Title>
-            </Header>
-            <Content style={{ margin: '24px 16px 0' }}>
-                <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: "100%" }}>
+            <>
+                <GoogleFontLoader
+                fonts={[
+                    {
+                    font: 'Roboto',
+                    weights: [400, '400i'],
+                    },
+                    {
+                    font: 'Roboto Mono',
+                    weights: [1000, 700],
+                    },
+                ]}
+                subsets={['cyrillic-ext', 'greek']}
+                />
+                </>
+                <h1 className= "title" style={{ fontFamily: 'Roboto Mono, monospaced' }}> {user.username} </h1>
+            <div style={{ margin: '80px' }}>
                     <div>
-                        <p>id : {user.id}</p>
-                        <p>name : {user.username}</p>
-                        <p>description : {user.description}</p>
-                    </div>
-                    <h2>Les messages postés par {user.username}</h2>
+                        <p>Prénom : {user.username}</p>
+                        <p>Email : {user.email}</p>
+                    </div><br></br><br></br><br></br><br></br>
+                    <Divider>Les messages postés par {user.username}</Divider>
                     <ul>
                         {userPosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((post) => {
                             if (!post.text || !post.user) {
                                 return false
                             }
                             return (
-                                <li key={post.id}>
+                                <li className="messages" key={post.id}>
 
                                     <b>{post.user.username} : </b>
 
                                     {post.text}
-                                    <span onClick={() => console.log("like")}> <b>|</b> {`❤ ${!post.like ? 0 : post.like}`} <b>|</b></span>
                                 </li>)
                         })}
                     </ul>
                 </div>
-            </Content>
-        </>)
+        </>
+        )
 }
 
 export default OtherUser
