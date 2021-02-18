@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import GoogleFontLoader from 'react-google-font-loader';
-import { Divider } from 'antd';
 
 import { loadPosts, newPost, destroyPost, editingPost } from '../redux/actions/postsActions'
 
@@ -150,7 +149,7 @@ const Home = () => {
             </>
           }
           <div>
-          <Divider>Les messages laissés</Divider>
+          <h2>Les messages laissés</h2>
             <ul>
               {posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((post) => {
                 if (!post.text || !post.user) {
