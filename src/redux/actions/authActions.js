@@ -1,6 +1,14 @@
 import * as actionTypes from './actionTypes';
 import Cookies from 'js-cookie'
 
+export const loadUser = (response) => {
+    return {
+        type: actionTypes.LOAD_USER,
+        user: response,
+        token: Cookies.get('token')
+    }
+}
+
 export const registerSuccess = (response) => {
     return {
         type: actionTypes.REGISTER_SUCCESS,
@@ -12,14 +20,6 @@ export const registerSuccess = (response) => {
 export const registerFail = () => {
     return {
         type: actionTypes.REGISTER_FAIL,
-    }
-}
-
-export const loadUser = (response) => {
-    return {
-        type: actionTypes.LOAD_USER,
-        user: response,
-        token: Cookies.get('token')
     }
 }
 
