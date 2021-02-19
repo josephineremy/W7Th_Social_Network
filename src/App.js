@@ -11,7 +11,7 @@ import Navbar from './components/Navbar';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import OtherUser from './pages/OtherUser';
-import Footer from './components/Footer';
+
 import "./App.css"
 
 import { loadUser } from './redux/actions/authActions'
@@ -30,12 +30,6 @@ const App = () => {
           'Authorization': `Bearer ${Cookies.get('token')}`
         },
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response
-        })
         .then((response) => response.json())
         .then((response) => {
           dispatch(loadUser(response))
@@ -46,7 +40,7 @@ const App = () => {
     }
   }, [dispatch])
 
-  const UnAuthRoute = ({ component: Component, ...rest }) => (
+  const PublicRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
       isAuthenticated ? (
         <Redirect to={{ pathname: '/' }} />
@@ -56,7 +50,7 @@ const App = () => {
     )} />
   )
 
-  const AuthRoute = ({ component: Component, ...rest }) => (
+  const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
       isAuthenticated ? (
         <Component {...props} />
@@ -73,17 +67,15 @@ const App = () => {
         <Navbar />
         <Layout>
           <Switch>
-            <UnAuthRoute path="/login" component={Login} />
-            <UnAuthRoute path="/register" component={Register} />
-            <AuthRoute path="/profile" component={Profile} />
-            <AuthRoute path="/user/:userId" component={OtherUser} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/register" component={Register} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/user/:userId" component={OtherUser} />
             <Route exact path="/" component={Home} />
           </Switch>
          </Layout>
       </Router >
-      <Footer/>
     </Layout>
-
 
   )
 }
