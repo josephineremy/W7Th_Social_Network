@@ -7,6 +7,14 @@
   color: white;
 }
 
+footer {
+  background: #282c36;
+  color: white;
+  height: 50px;
+  align-items: center;
+  padding-top: 15px;
+}
+
 .nav-link {
   width: 100%;
   display: flex; 

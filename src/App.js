@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import OtherUser from './pages/OtherUser';
+import Footer from './components/Footer';
 import "./App.css"
 
 import { loadUser } from './redux/actions/authActions'
@@ -80,7 +81,9 @@ const App = () => {
           </Switch>
          </Layout>
       </Router >
+      <Footer/>
     </Layout>
+
 
   )
 }

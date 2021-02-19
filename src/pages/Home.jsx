@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import GoogleFontLoader from 'react-google-font-loader';
 
 import { loadPosts, newPost, destroyPost, editingPost } from '../redux/actions/postsActions'
@@ -20,16 +20,10 @@ const Home = () => {
   useEffect(() => {
     const getPosts = () => {
       fetch("http://localhost:1337/posts")
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response
-        })
-        .then((response) => response.json())
-        .then((response) => {
-          dispatch(loadPosts(response))
-        })
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch(loadPosts(response))
+      })
     }
     if (posts.length === 0) {
       getPosts()
@@ -50,12 +44,6 @@ const Home = () => {
       },
       body: JSON.stringify(addPost)
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response
-      })
       .then((response) => response.json())
       .then((response) => {
         dispatch(newPost(response))
@@ -78,12 +66,6 @@ const Home = () => {
       },
       body: JSON.stringify(data)
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response
-      })
       .then((response) => response.json())
       .then((response) => {
         dispatch(editingPost(response))
@@ -99,16 +81,10 @@ const Home = () => {
       fetch(`http://localhost:1337/posts/${toDeletePost.id}`, {
         method: 'delete',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response
-        })
         .then((response) => response.json())
         .then((response) => {
           dispatch(destroyPost(response))
